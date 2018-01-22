@@ -15,6 +15,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.util.Observable;
+import java.util.Observer;
+
 
 public class SensorValuesActivity extends Activity implements SensorEventListener{
 
@@ -31,6 +34,7 @@ public class SensorValuesActivity extends Activity implements SensorEventListene
 	private TextView mTime;
 	private TextView mAccuracy;
 	ToggleButton btnToggle;
+	boolean Regi;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,39 +55,39 @@ public class SensorValuesActivity extends Activity implements SensorEventListene
 		mTime = (TextView)findViewById(R.id.time);
 		mAccuracy = (TextView)findViewById(R.id.accuracy);
 
-        findViewById(R.id.measurerecords).setOnClickListener(btnRec);
-        btnToggle = (ToggleButton) this.findViewById(R.id.measuretoggle);
-        btnToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked == true) {
-                    onPause();
-                } else {
-                    //onResume();
+		findViewById(R.id.measurerecords).setOnClickListener(btnRec);
+		btnToggle = (ToggleButton) this.findViewById(R.id.measuretoggle);
+		btnToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+				if (isChecked == true) {
+					Regi = true;
 					SensorValuesActivity(mSensorManager);
-                }
-            }
-        });
+				} else {
+					Regi = false;
+					SensorValuesActivity(mSensorManager);
+				}
+			}
+		});
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 //		mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-		mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_FASTEST);
+/*		mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_FASTEST);     */
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		mSensorManager.unregisterListener(this);
+//		mSensorManager.unregisterListener(this);
 	}
 
-/*	protected  void onStop() {
-	    super.onStop();
-        mSensorManager.unregisterListener(this);
-    }*/
+	protected  void onStop() {
+		super.onStop();
+	}
 
 	@Override
 	protected void onDestroy() {
@@ -91,7 +95,7 @@ public class SensorValuesActivity extends Activity implements SensorEventListene
 	}
 
 	@Override
-		public void onSensorChanged(final SensorEvent event) {
+	public void onSensorChanged(final SensorEvent event) {
 
 		mAccuracy.setText(String.valueOf(event.accuracy));
 		mTime.setText("Time: " + String.valueOf(event.timestamp));
@@ -130,8 +134,11 @@ public class SensorValuesActivity extends Activity implements SensorEventListene
 	};
 
 	public void SensorValuesActivity(SensorManager mSensorManager) {
-		//mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ALL);
-		mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
+		if (Regi) {
+			mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ALL);
+			mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
+		} else {
+			mSensorManager.unregisterListener(this);
+		}
 	}
-
 }

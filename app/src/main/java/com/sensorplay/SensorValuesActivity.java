@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -74,25 +75,19 @@ public class SensorValuesActivity extends Activity implements SensorEventListene
 	@Override
 	protected void onResume() {
 		super.onResume();
-//		mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-/*		mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_FASTEST);     */
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-//		mSensorManager.unregisterListener(this);
 	}
 
-	protected  void onStop() {
-		super.onStop();
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
+    @Override
+    public void onBackPressed() {
+        Regi = false;
+        SensorValuesActivity(mSensorManager);
+        finish();   //현재 화면 종료 (이전 화면으로 전환)
+    }
 
 	@Override
 	public void onSensorChanged(final SensorEvent event) {
@@ -100,6 +95,7 @@ public class SensorValuesActivity extends Activity implements SensorEventListene
 		mAccuracy.setText(String.valueOf(event.accuracy));
 		mTime.setText("Time: " + String.valueOf(event.timestamp));
 		mEventValue_0.setText(String.valueOf(event.values[0]));
+//		Log.d("abc", String.valueOf(event.values.length));
 		if(event.values.length>1) {
 			mEventValue_1.setText(String.valueOf(event.values[1]));
 		}
@@ -125,7 +121,6 @@ public class SensorValuesActivity extends Activity implements SensorEventListene
 	}
 
 	Button.OnClickListener btnRec = new View.OnClickListener() {
-
 		@Override
 		public void onClick(View view) {
 			Intent intent = new Intent(SensorValuesActivity.this, SensorRecDisplay.class);

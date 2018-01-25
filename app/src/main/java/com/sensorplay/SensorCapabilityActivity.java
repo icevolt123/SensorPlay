@@ -30,7 +30,7 @@ public class SensorCapabilityActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		 setContentView(R.layout.capability_layout);
-		
+
 		 Intent intent = getIntent();
 		 mSensorType = intent.getIntExtra(getResources().getResourceName(R.string.sensor_type), 0);
 		 mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);

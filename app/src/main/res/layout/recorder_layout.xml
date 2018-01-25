@@ -45,12 +45,15 @@
         android:layout_centerVertical="true"
         android:text="Hello Work?!" />
 
-    <Button
-        android:id="@+id/btnRe"
+    <ToggleButton
+        android:id="@+id/btn_Rec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nanosec"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
-        android:text="Refresh" />
+        android:onClick="Save"
+        android:text="Recording"
+        android:textOff="Recording"
+        android:textOn="STOP" />
 </RelativeLayout>

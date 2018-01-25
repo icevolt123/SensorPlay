@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,13 +33,12 @@ public class SensorListActivity extends Activity implements OnItemClickListener{
         mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         mSensorsList = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 		mSensorListView = (ListView)findViewById(R.id.session_list);
+
 		mListAdapter = new ListAdapter();
 		mSensorListView.setAdapter(mListAdapter);
 		mSensorListView.setOnItemClickListener(this);
 		
     }
-   
-
 
 	@Override
 	protected void onResume() {
@@ -46,7 +46,6 @@ public class SensorListActivity extends Activity implements OnItemClickListener{
 //		Intent i = new Intent(getApplicationContext(), SensorService.class);
 //		startService(i);
 	}
-
 
 	@Override
 	protected void onPause() {
@@ -59,7 +58,7 @@ public class SensorListActivity extends Activity implements OnItemClickListener{
 		Intent intent = new Intent(getApplicationContext(), SensorCapabilityActivity.class);
 		intent.putExtra(getResources().getResourceName(R.string.sensor_type), mSensorsList.get(position).getType());
 		startActivity(intent);
-	}
+    }
     
 	
 	@Override
@@ -67,7 +66,7 @@ public class SensorListActivity extends Activity implements OnItemClickListener{
 		finish();
 	}
 
-	
+
 	private class ListAdapter extends BaseAdapter{
 
 		private TextView mSensorName;

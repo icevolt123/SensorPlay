@@ -1,19 +1,11 @@
 package com.sensorplay;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,10 +20,12 @@ public class SensorRec extends Observable implements SensorEventListener {
     private long mEventValue_0;
     private float mEventValue_1;
     private float mEventValue_2;
+    private TextView mEventValue_3;
+    private TextView mEventValue_4;
+    private TextView mEventValue_5;
+    private TextView mEventValue_6;
     private long mTime;
     private TextView mAccuracy;
-    private String gsonStr;
-    SharedPreferences sharedPreferences;
 
     public SensorRec(SensorManager sensorManager, Observer o) {
         this(sensorManager);
@@ -61,24 +55,6 @@ public class SensorRec extends Observable implements SensorEventListener {
         SensorRec data = new SensorRec(mTime, mEventValue_0, mEventValue_1, mEventValue_2);
         this.setChanged();
         this.notifyObservers(data);
-
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("x", event.values[0]);
-        params.put("y", event.values[1]);
-        params.put("z", event.values[2]);
-        gsonStr = JSON.toJSONString(params);
-//        Log.d("aaa", String.valueOf(params));
-    }
-
-    public String getGsonStr(){
-        return this.gsonStr;
-    }
-
-    public void Save1(Context context){
-        /*SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("x", gsonStr);
-        editor.commit();*/
-        Toast.makeText(context, "토스트메시지입니다.", Toast.LENGTH_LONG).show();
     }
 
     public long getTimestamp() {

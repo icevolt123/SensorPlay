@@ -2,10 +2,14 @@ package com.sensorplay;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -25,6 +29,8 @@ public class SensorRecDisplay extends Activity implements Observer {
     private long mNano1;
     SensorManager mSensorManager;
     private SensorRec sensorRec;
+    ToggleButton btn_Rec;
+    Context context;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,7 @@ public class SensorRecDisplay extends Activity implements Observer {
         mYaxis = (TextView)findViewById(R.id.rec02);
         mZaxis = (TextView)findViewById(R.id.rec03);
         mNano = (TextView)findViewById(R.id.nanosec);
+        btn_Rec = (ToggleButton)findViewById(R.id.btn_Rec);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorRec = new SensorRec(mSensorManager, this);
@@ -66,5 +73,11 @@ public class SensorRecDisplay extends Activity implements Observer {
         mYaxis.setText(String.valueOf(mYaxis1));
         mZaxis.setText(String.valueOf(mZaxis1));
         mNano.setText(String.valueOf(mNano1));
+    }
+
+    public void Save (View view) {
+
+        sensorRec.Save1(context);
+
     }
 }

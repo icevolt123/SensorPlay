@@ -1,7 +1,7 @@
 #Internal package file, do not edit.
-#Fri Jan 19 04:24:10 KST 2018
+#Tue Jan 23 18:25:49 KST 2018
 0.baseType=DIRECTORY
-0.base=C\:\\Android_sdk\\AndroidStudioProjects\\SensorPlay\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+0.base=D\:\\Android\\AndroidStudioProjects\\MEMS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 0.path=classes.dex
 0.set=DEX
 count=1

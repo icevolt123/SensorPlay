@@ -12,19 +12,19 @@ public class SensorActivity extends Activity implements SensorEventListener{
 
 	private SensorManager mSensorManager;
 	private Sensor mSensor;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		 setContentView(R.layout.activity_main);
-		 
+
 		 mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 		 if(mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null)
 		 {
 			 mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		 }
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -40,19 +40,19 @@ public class SensorActivity extends Activity implements SensorEventListener{
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
+
 		mSensorManager = null;
 		mSensor = null;
 	}
-	
+
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		
+
 	}
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		
+
 	}
 
 }
